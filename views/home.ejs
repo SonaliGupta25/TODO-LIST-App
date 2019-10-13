@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>
+            <%= title %>
+        </title>
+        <link rel="stylesheet" href="/css/to_do.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <h1 class="heading">
+           <span>TODO App</span>
+        </h1>
+
+        <!--toggle button for day and night mode-->
+        <div class="toggle"></div>
+
+        
+         <div class="bg">
+            <div class="background"></div>
+            <div class="midground"></div>
+            <div class="foreground"></div>
+        </div>
+
+        <div class="mg">
+            <div class="morning"></div>
+        </div>
+
+
+            
+        <form id="new-list-app" action="/create-list" method="post">
+
+            <div class = "des">
+            <label for="description">DESCRIPTION</label>
+            <input type="text" id="description" name="description" placeholder="What do you need to do">
+            </div>
+
+            <div class="cate">
+             <label for="category">CATEGORY</label>   
+            <!-- <input type="text" id="category" name="category"> -->
+            <select name="category" id="category">
+                <option>Choose a Category</option>
+                <option>Personal</option>
+                <option>Work</option>
+                <option>School</option>
+                <option>Cleaning</option>
+                <option>Other</option>
+                <option></option>
+            </select>
+            </div>
+            <div id="datepicker" class = "input-group-date" data-date-formate="mmm dd,yyyy"> 
+                <label for="date-selector">DUE DATE</label>
+                <input type="date" id="date-selector" name="date">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-calender"></i></span>
+            </div>
+
+            <div class="button-container">
+                <button id="Add-Task" type="submit" name="submit_buttons" value="Add-Task"><i class="fa fa-plus"></i>&nbsp;ADD TASK </button>
+                
+                <button id="Delete-Tasks"  type="submit" name="submit_buttons" value="Delete-Tasks">  <i class="fa fa-trash-o"></i>&nbsp;DELETE TASKS</button>
+                
+            </div>
+
+            <div id="to-do-listdata">
+            
+                <% for(let i of todo_list) {%>
+                    <div class="individual-task">
+                        <input type="checkbox" class="check-it" name="delete_tasks" value="<%= i._id %>">
+                       <div class="task">
+                            <span class="text"><%= i.description%></span>
+                        <div class="date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;<%= i.date.toDateString() %></div>
+                       </div>
+                        
+                       
+                        
+                        <% if(i.category=="Choose a Category"){%>
+                            <div class="category-btn category-btn0"><%= i.category%></div>
+                         <%}%>
+                        
+                        <% if(i.category=="Work"){%>
+                           <div class="category-btn category-btn1"><%= i.category%></div>
+                        <%}%>
+
+                        <% if(i.category=="School"){%>
+                            <div class="category-btn category-btn2"><%= i.category%></div>
+                        <%}%>
+
+                        <% if(i.category=="Personal"){%>
+                            <div class="category-btn category-btn3"><%= i.category%></div>
+                        <%}%>
+
+                        <% if(i.category=="Cleaning"){%>
+                            <div class="category-btn category-btn4"><%= i.category%></div>
+                        <%}%>
+
+                        <% if(i.category=="Other"){%>
+                            <div class="category-btn category-btn5"><%= i.category%></div>
+                        <%}%>
+
+                     </div>
+                    <%}%>
+                   
+            
+        </div>
+            
+         </form>
+
+         <script src="https://code.jquery.com/jquery-3.3.1.js" ></script>
+         <script type="text/javascript">
+            $(document).ready(function(){
+                $('.toggle').click(function(){
+                    $('.toggle').toggleClass('active')
+                    $('body').toggleClass('night')
+                    
+
+    })
+})
+         </script>
+         
+
+    </body>
+</html>
